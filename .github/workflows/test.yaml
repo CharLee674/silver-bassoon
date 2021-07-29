@@ -5,10 +5,10 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.7]
 
     steps:
       - uses: actions/checkout@v2
@@ -29,7 +29,9 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
+          cd /home/charles/silver-bassoon/
           pytest test.py
+          echo "TEST COMPLETED JUST NOW" >> /home/charles/GH_ACTIONS
 
       - name: Upload pytest test results
         uses: actions/upload-artifact@v2
